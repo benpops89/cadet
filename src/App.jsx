@@ -23,8 +23,7 @@ function App() {
         />
       </div>
       <div className="w-1/2 p-4">
-        <h2 className="text-lg font-bold mb-4">Model Preview (coming soon)</h2>
-        <div className="h-full border border-dashed border-gray-400 bg-gray-100 flex items-center justify-center">
+        <div className="h-full bg-gray-100 flex items-center justify-center">
           3D Viewer Placeholder
         </div>
       </div>
