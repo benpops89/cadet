@@ -15,7 +15,11 @@ function App() {
           defaultLanguage="python"
           value={code}
           onChange={(value) => setCode(value || "")}
-          theme="vs-dark"
+          options={{
+            minimap: {
+              enabled: false,
+            }
+          }}
         />
       </div>
       <div className="w-1/2 p-4">
