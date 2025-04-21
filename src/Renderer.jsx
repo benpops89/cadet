@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const Renderer = () => {
   const canvasRef = useRef(null); // Reference for the canvas
@@ -24,11 +25,30 @@ const Renderer = () => {
     camera.position.set(5, 5, 5);
     camera.lookAt(0, 0, 0);
 
+    scene.background = new THREE.Color(0xf0f0f0); // Light gray
+
+    const gridHelper = new THREE.GridHelper(100, 100, 0x888888, 0xcccccc);
+    scene.add(gridHelper);
+
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
     });
     renderer.setSize(width, height);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
 
     // Add light
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -37,20 +57,27 @@ const Renderer = () => {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
+    animate();
 
     // Load STL
     const loader = new STLLoader();
     loader.load("/cube.stl", (geometry) => {
-      const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
-      const mesh = new THREE.Mesh(geometry, material);
-
-      // Optional: center geometry if needed
       geometry.center();
 
-      scene.add(mesh);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xaaaaaa,
+        roughness: 1,
+        metalness: 0,
+        flatShading: true
+      });
 
-      // Only render once
-      renderer.render(scene, camera);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      renderer.shadowMap.enabled = true;
+      directionalLight.castShadow = true;
+
+      scene.add(mesh);
     });
 
     // Handle window resize
