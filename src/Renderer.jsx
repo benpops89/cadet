@@ -20,18 +20,12 @@ const Renderer = () => {
       75,
       width / height,
       0.1,
-      1000
+      5000
     );
     camera.position.set(5, 5, 5);
     camera.lookAt(0, 0, 0);
 
     scene.background = new THREE.Color(0xf0f0f0); // Light gray
-
-    const gridHelper = new THREE.GridHelper(100, 100, 0x888888, 0xcccccc);
-    scene.add(gridHelper);
-
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
@@ -62,24 +56,45 @@ const Renderer = () => {
     // Load STL
     const loader = new STLLoader();
     loader.load("/cube.stl", (geometry) => {
-      geometry.center();
+      geometry.computeBoundingBox();
+      geometry.computeBoundingSphere();
 
       const material = new THREE.MeshStandardMaterial({
         color: 0xaaaaaa,
         roughness: 1,
         metalness: 0,
-        flatShading: true
+        flatShading: true,
       });
 
       const mesh = new THREE.Mesh(geometry, material);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
-      renderer.shadowMap.enabled = true;
-      directionalLight.castShadow = true;
+
+      // Center the mesh
+      const center = geometry.boundingSphere.center;
+      geometry.translate(-center.x, -center.y, -center.z);
 
       scene.add(mesh);
-    });
 
+      // Axes Helpers
+      const axesSize = geometry.boundingSphere?.radius || 5;
+      const axesHelper = new THREE.AxesHelper(axesSize * 5);
+      scene.add(axesHelper);
+
+      // Grid Helpers
+      // const gridHelper = new THREE.GridHelper(200, 200, 0x888888, 0xcccccc);
+      // scene.add(gridHelper);
+
+      // Position the camera just right
+      const radius = geometry.boundingSphere.radius;
+      const distance = radius * 2.5;
+
+      camera.position.set(distance, distance, distance);
+      camera.lookAt(0, 0, 0);
+
+      controls.target.set(0, 0, 0);
+      controls.update();
+    });
     // Handle window resize
     const handleResize = () => {
       const width = containerRef.current.clientWidth;
