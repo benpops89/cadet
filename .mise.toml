@@ -1,0 +1,7 @@
+[tools]
+python = "3.12"
+rust = "1.86.0"
+node = "23"
+
+[env]
+PKG_CONFIG_PATH = "/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig"

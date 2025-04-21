@@ -1,34 +1,22 @@
-// src/App.tsx
-import { useState } from "react";
-import Editor from "@monaco-editor/react";
+import React from "react";
+import Editor from "./Editor";
+import Renderer from "./Renderer";
 
-function App() {
-  const [code, setCode] = useState(
-    `import cadquery as cq\n\nresult = cq.Workplane("XY").box(1, 2, 3)`
-  );
-
+export default function App() {
   return (
-    <div className="flex h-screen w-screen">
+   <div className="flex h-screen v-screen">
+      {/* Monaco Editor (Left) */}
       <div className="w-1/2 border-r border-gray-300">
-        <Editor
-          height="100%"
-          defaultLanguage="python"
-          value={code}
-          onChange={(value) => setCode(value || "")}
-          options={{
-            minimap: {
-              enabled: false,
-            }
-          }}
-        />
+        <Editor/>
       </div>
-      <div className="w-1/2 p-4">
-        <div className="h-full bg-gray-100 flex items-center justify-center">
-          3D Viewer Placeholder
-        </div>
+
+      {/* Live Preview Placeholder (Right) */}
+      <div
+        className="w-1/2 flex items-center justify-center bg-gray-100"
+        id="viewer-container"
+      >
+        <Renderer/>
       </div>
     </div>
   );
 }
-
-export default App;
