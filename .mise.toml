@@ -4,4 +4,5 @@ rust = "1.86.0"
 node = "23"
 
 [env]
+_.python.venv = { path = ".venv", create = true }
 PKG_CONFIG_PATH = "/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig"
