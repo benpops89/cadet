@@ -41,6 +41,13 @@ const Renderer = ({ modelPath }) => {
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
 
+    const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    backLight.position.set(-10, -10, -10);
+    scene.add(backLight);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+    scene.add(hemiLight);
+
     const animate = () => {
       requestAnimationFrame(animate);
       controls.update();
@@ -92,6 +99,7 @@ const Renderer = ({ modelPath }) => {
         roughness: 1,
         metalness: 0,
         flatShading: true,
+        side: THREE.DoubleSide,
       });
 
       const mesh = new THREE.Mesh(geometry, material);
@@ -101,6 +109,9 @@ const Renderer = ({ modelPath }) => {
       // Center geometry
       const center = geometry.boundingSphere.center;
       geometry.translate(-center.x, -center.y, -center.z);
+
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.rotation.z = Math.PI;
 
       scene.add(mesh);
       meshRef.current.mesh = mesh;
