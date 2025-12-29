@@ -1,64 +1,57 @@
 import React, { useState } from "react";
 import MonacoEditor from "@monaco-editor/react";
-import { appDataDir } from "@tauri-apps/api/path";
-import { invoke } from '@tauri-apps/api/core';
 
-export default function Editor({ onExport }) {
-  const [code, setCode] = useState(`import cadquery as cq\nresult = cq.Workplane("XY").box(10, 10, 10)`);
+const DEFAULT_CODE = `import cadquery as cq
+result = cq.Workplane("XY").box(10, 10, 10)`;
 
-  // Handle Monaco Editor change event
+export default function Editor({ code, onCodeChange }) {
+  const [internalCode, setInternalCode] = useState(DEFAULT_CODE);
+
+  const editorValue = code ?? internalCode;
+
   const handleEditorChange = (value) => {
-    setCode(value);
-  };
-
-  // Send the code to backend for processing
-  const handleExport = async () => {
-    try {
-      const addDataDirPath = await appDataDir();
-      console.log(addDataDirPath);
-      const filePath = await invoke('generate_model', {
-        code: code,
-        format: "stl",
-        outputPath: addDataDirPath,
-      });
-      console.log("Model exported to: ", filePath);
-      onExport(filePath);
-      // Assuming Renderer component takes STL data and renders it
-      // You can pass the stlData to your Renderer component here
-    } catch (error) {
-      console.error("Error generating STL:", error);
+    const next = value ?? "";
+    if (onCodeChange) {
+      onCodeChange(next);
+      return;
     }
+    setInternalCode(next);
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Monaco Editor (Top part) */}
-      <div className="flex-1">
+    <div className="flex-1 h-full bg-[#1e1e1e]">
+      <div className="h-full relative bg-[#1e1e1e]">
         <MonacoEditor
-          height="100%"  // Let Monaco take all available height in the flex container
+          height="100%"
           defaultLanguage="python"
-          value={code}
+          value={editorValue}
           onChange={handleEditorChange}
           theme="vs-dark"
+          loading={null}
           options={{
             fontSize: 14,
             minimap: { enabled: false },
             automaticLayout: true,
             wordWrap: "on",
             scrollBeyondLastLine: false,
+            smoothScrolling: true,
+            cursorBlinking: "smooth",
+            fontFamily:
+              "'JetBrains Mono', 'Fira Code', Monaco, 'Courier New', monospace",
+            lineNumbers: "on",
+            renderLineHighlight: "all",
+            scrollbar: {
+              vertical: "visible",
+              horizontal: "visible",
+              useShadows: true,
+              verticalScrollbarSize: 10,
+              horizontalScrollbarSize: 10,
+            },
           }}
         />
-      </div>
-
-      {/* Generate STL Button (Bottom part) */}
-      <div className="mt-4 p-4">
-        <button
-          onClick={handleExport}
-          className="w-full py-2 bg-blue-500 text-white rounded"
-        >
-          Generate STL
-        </button>
       </div>
     </div>
   );
 }
+
+export { DEFAULT_CODE };
