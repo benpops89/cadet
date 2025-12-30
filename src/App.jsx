@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 
 export default function App() {
   const [modelPath, setModelPath] = useState(null);
+  const [modelRevision, setModelRevision] = useState(0);
   const [code, setCode] = useState(DEFAULT_CODE);
   const [isGenerating, setIsGenerating] = useState(false);
   const [status, setStatus] = useState({
@@ -30,6 +31,7 @@ export default function App() {
       });
 
       setModelPath(filePath);
+      setModelRevision((prev) => prev + 1);
       setStatus({ kind: "success", message: `Generated: ${filePath}` });
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
@@ -116,7 +118,7 @@ export default function App() {
           </div>
 
           <div className="min-w-0 bg-[#1e1e1e]" style={{ width: `${100 - editorWidth}%` }}>
-            <Renderer key={rendererKey} modelPath={modelPath} />
+            <Renderer key={rendererKey} modelPath={modelPath} modelRevision={modelRevision} />
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { readFile, BaseDirectory } from "@tauri-apps/plugin-fs";
 
-const Renderer = ({ modelPath }) => {
+const Renderer = ({ modelPath, modelRevision }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const meshRef = useRef(null);
@@ -223,7 +223,7 @@ const Renderer = ({ modelPath }) => {
     };
 
     loadSTL();
-  }, [modelPath]);
+  }, [modelPath, modelRevision]);
 
   return (
     <div className="w-full h-full flex flex-col">

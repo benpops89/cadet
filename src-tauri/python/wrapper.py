@@ -1,5 +1,4 @@
 import sys
-from uuid import uuid4
 import importlib.util
 from pathlib import Path
 from cadquery.occ_impl.exporters import export, ExportTypes
@@ -31,7 +30,16 @@ def run_user_code(code: str, export_type: str, data_dir: str):
         print(f"Invalid export type: {export_type}", file=sys.stderr)
         sys.exit(1)
 
-    filename = Path(data_dir).joinpath(f"model_output_{uuid4().hex}.{export_type}")
+    data_dir_path = Path(data_dir)
+    filename = data_dir_path.joinpath(f"model_output.{export_type}")
+
+    # Clean up previous runs that used unique names.
+    for old_file in data_dir_path.glob(f"model_output_*.{export_type}"):
+        try:
+            old_file.unlink()
+        except OSError:
+            pass
+
     try:
         export(
             user_module.result,
