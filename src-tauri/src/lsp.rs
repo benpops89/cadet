@@ -198,7 +198,10 @@ pub fn start_lsp_server(
     // Dropping it unregisters the callback, which drops `stdin_clone`, which closes the pipe,
     // causing `ty server` to exit immediately ("disconnected channel").
     let stdin_clone = Arc::clone(&stdin);
+
+    #[cfg(debug_assertions)]
     let logger = Arc::clone(&logger);
+
     let handler = app_handle.listen_any("lsp-request", move |event| {
         // Payload comes from the JS API where it is JSON-serialized.
         // Since we emit a `string` from the frontend, the payload arrives as a JSON string

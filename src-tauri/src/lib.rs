@@ -23,7 +23,7 @@ async fn lsp_stop(app: tauri::AppHandle, state: tauri::State<'_, LSPState>) -> R
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     // Start building the Tauri app
-    let mut builder = tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_clipboard_manager::init())
@@ -37,10 +37,10 @@ pub fn run() {
 
     // Only attach devtools in debug mode
     #[cfg(debug_assertions)]
-    {
+    let builder = {
         let devtools = tauri_plugin_devtools::init();
-        builder = builder.plugin(devtools);
-    }
+        builder.plugin(devtools)
+    };
 
     // Run the app
     builder
