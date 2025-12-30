@@ -8,6 +8,14 @@ node = "23"
 _.python.venv = { path = ".venv", create = true }
 PKG_CONFIG_PATH = "/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig"
 
+[tasks.icon]
+description = "Build the icons for the app"
+run = "bun tauri icon"
+
 [tasks.dev]
 description = "Start the dev server for app"
 run = "bun tauri dev"
+
+[tasks.build]
+description = "Build the app for production"
+run = "bun tauri build"
