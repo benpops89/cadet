@@ -1,10 +1,73 @@
+use chrono::Local;
+use std::fs::{self, OpenOptions};
 use std::io::{BufRead, BufReader, Read, Write};
 use std::path::PathBuf;
 use std::process::{Child, Command, Stdio};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
-use tauri::{AppHandle, Emitter, EventId, Listener};
+use tauri::{AppHandle, Emitter, EventId, Listener, Manager};
+
+type SharedLogger = Arc<Mutex<DailyLogFile>>;
+
+struct DailyLogFile {
+    dir: PathBuf,
+    day: String,
+    file: std::fs::File,
+}
+
+impl DailyLogFile {
+    fn new(app_handle: &AppHandle) -> Result<Self, String> {
+        let dir = app_handle
+            .path()
+            .app_data_dir()
+            .map_err(|e| format!("Failed to resolve app data dir: {e}"))?
+            .join("logs");
+
+        fs::create_dir_all(&dir).map_err(|e| format!("Failed to create log dir: {e}"))?;
+
+        let day = Local::now().format("%Y-%m-%d").to_string();
+        let file = Self::open_file_for_day(&dir, &day)?;
+
+        Ok(Self { dir, day, file })
+    }
+
+    fn open_file_for_day(dir: &PathBuf, day: &str) -> Result<std::fs::File, String> {
+        let path = dir.join(format!("lsp-{day}.log"));
+        OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&path)
+            .map_err(|e| format!("Failed to open log file {}: {e}", path.display()))
+    }
+
+    fn rotate_if_needed(&mut self) -> Result<(), String> {
+        let today = Local::now().format("%Y-%m-%d").to_string();
+        if today == self.day {
+            return Ok(());
+        }
+
+        self.file = Self::open_file_for_day(&self.dir, &today)?;
+        self.day = today;
+        Ok(())
+    }
+
+    fn log(&mut self, tag: &str, message: &str) {
+        if self.rotate_if_needed().is_err() {
+            return;
+        }
+
+        let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S%.3f");
+        let _ = writeln!(self.file, "{timestamp} [{tag}] {message}");
+        let _ = self.file.flush();
+    }
+}
+
+fn log_line(logger: &SharedLogger, tag: &str, message: &str) {
+    if let Ok(mut guard) = logger.lock() {
+        guard.log(tag, message);
+    }
+}
 
 fn project_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..")
@@ -71,6 +134,8 @@ pub fn start_lsp_server(
         }
     }
 
+    let logger: SharedLogger = Arc::new(Mutex::new(DailyLogFile::new(&app_handle)?));
+
     let stdin = Arc::new(Mutex::new(child.stdin.take().ok_or("Failed to get stdin")?));
     if let Ok(mut stdin_state) = state.stdin.lock() {
         *stdin_state = Some(Arc::clone(&stdin));
@@ -79,10 +144,11 @@ pub fn start_lsp_server(
 
     // Drain stderr so the child process never blocks on a full pipe.
     if let Some(stderr) = child.stderr.take() {
+        let logger = Arc::clone(&logger);
         thread::spawn(move || {
             let reader = BufReader::new(stderr);
             for line in reader.lines().flatten() {
-                eprintln!("[ty] {line}");
+                log_line(&logger, "ty", &line);
             }
         });
     }
@@ -132,6 +198,7 @@ pub fn start_lsp_server(
     // Dropping it unregisters the callback, which drops `stdin_clone`, which closes the pipe,
     // causing `ty server` to exit immediately ("disconnected channel").
     let stdin_clone = Arc::clone(&stdin);
+    let logger = Arc::clone(&logger);
     let handler = app_handle.listen_any("lsp-request", move |event| {
         // Payload comes from the JS API where it is JSON-serialized.
         // Since we emit a `string` from the frontend, the payload arrives as a JSON string
@@ -142,9 +209,12 @@ pub fn start_lsp_server(
             Err(_) => payload.to_string(),
         };
 
-        if let Ok(mut stdin_guard) = stdin_clone.lock() {
-            eprintln!("[lsp] request bytes={}", payload.len());
+        #[cfg(debug_assertions)]
+        {
+            log_line(&logger, "lsp", &format!("request bytes={}", payload.len()));
+        }
 
+        if let Ok(mut stdin_guard) = stdin_clone.lock() {
             let content_length = payload.as_bytes().len();
             let message = format!("Content-Length: {}\r\n\r\n{}", content_length, payload);
             let _ = stdin_guard.write_all(message.as_bytes());
