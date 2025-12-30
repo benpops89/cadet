@@ -13,6 +13,7 @@ export default function App() {
     kind: "idle",
     message: "Ready",
   });
+  const [rendererKey, setRendererKey] = useState(0);
   const [editorWidth, setEditorWidth] = useState(50); // percentage
   const isDragging = useRef(false);
 
@@ -41,6 +42,8 @@ export default function App() {
 
   const handleReset = () => {
     setCode(DEFAULT_CODE);
+    setModelPath(null);
+    setRendererKey((prev) => prev + 1);
     setStatus({ kind: "idle", message: "Ready" });
   };
 
@@ -117,7 +120,7 @@ export default function App() {
           </div>
 
           <div className="min-w-0 bg-[#1e1e1e]" style={{ width: `${100 - editorWidth}%` }}>
-            <Renderer modelPath={modelPath} />
+            <Renderer key={rendererKey} modelPath={modelPath} />
           </div>
         </div>
       </div>

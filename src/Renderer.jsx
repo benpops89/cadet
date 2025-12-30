@@ -74,8 +74,9 @@ const Renderer = ({ modelPath }) => {
     scene.add(axesHelper);
     axesHelperRef.current = axesHelper;
 
+    let animationFrameId = 0;
     const animate = () => {
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
     };
@@ -103,6 +104,8 @@ const Renderer = ({ modelPath }) => {
     // Don't call updateHelpers here - axes should only show after model loads
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
+
       resizeObserver.disconnect();
       window.removeEventListener("resize", handleResize);
 
