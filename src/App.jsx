@@ -58,9 +58,12 @@ export default function App() {
   };
 
   useEffect(() => {
+    const loadingEl = document.getElementById('app-loading');
+    if (loadingEl) loadingEl.remove();
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
-    
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
