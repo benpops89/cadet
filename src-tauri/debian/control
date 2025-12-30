@@ -1,0 +1,8 @@
+Package: cadet
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: Ben Poppy <me@benpoppy.dev>
+Description: Cadet desktop application
+ A fast desktop app built with Tauri and React.
