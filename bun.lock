@@ -5,15 +5,20 @@
     "": {
       "name": "cadet",
       "dependencies": {
+        "@codingame/monaco-vscode-api": "^24.2.0",
         "@heroicons/react": "^2.2.0",
         "@monaco-editor/react": "^4.7.0",
         "@tailwindcss/vite": "^4.1.4",
         "@tauri-apps/api": "^2.5.0",
+        "@tauri-apps/plugin-clipboard-manager": "^2",
         "@tauri-apps/plugin-fs": "^2.2.1",
         "@tauri-apps/plugin-opener": "^2",
+        "monaco-languageclient": "^10.5.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "three": "^0.175.0",
+        "vscode-languageclient": "^9.0.1",
+        "vscode-languageserver-protocol": "^3.17.5",
       },
       "devDependencies": {
         "@tauri-apps/cli": "^2",
@@ -67,6 +72,90 @@
     "@babel/traverse": ["@babel/traverse@7.27.0", "", { "dependencies": { "@babel/code-frame": "^7.26.2", "@babel/generator": "^7.27.0", "@babel/parser": "^7.27.0", "@babel/template": "^7.27.0", "@babel/types": "^7.27.0", "debug": "^4.3.1", "globals": "^11.1.0" } }, "sha512-19lYZFzYVQkkHkl4Cy4WrAVcqBkgvV2YM2TU3xG6DIwO7O3ecbDPfW3yM3bjAGcqcQHi+CCtjMR3dIEHxsd6bA=="],
 
     "@babel/types": ["@babel/types@7.27.0", "", { "dependencies": { "@babel/helper-string-parser": "^7.25.9", "@babel/helper-validator-identifier": "^7.25.9" } }, "sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg=="],
+
+    "@codingame/monaco-vscode-api": ["@codingame/monaco-vscode-api@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-base-service-override": "24.2.0", "@codingame/monaco-vscode-environment-service-override": "24.2.0", "@codingame/monaco-vscode-extensions-service-override": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0", "@codingame/monaco-vscode-host-service-override": "24.2.0", "@codingame/monaco-vscode-layout-service-override": "24.2.0", "@codingame/monaco-vscode-quickaccess-service-override": "24.2.0", "@vscode/iconv-lite-umd": "0.7.1", "dompurify": "3.3.1", "jschardet": "3.1.4", "marked": "14.0.0" } }, "sha512-Z/9POyTSsI+ZqfivGdaykt/agYbsbHBVep+Vmc064FPcY1YBH4VjhRcyqlAgaY7P1Ui8105LGUYHcYM5RNLEXQ=="],
+
+    "@codingame/monaco-vscode-base-service-override": ["@codingame/monaco-vscode-base-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-VMO6ZfmuN+2LmvTRwZINYeXm/FluNGLJecQZCVEiFDQDKaaeufDXV6aZBNnsd9nGeWfU1k4WWPs5q1caGRx9yg=="],
+
+    "@codingame/monaco-vscode-bulk-edit-service-override": ["@codingame/monaco-vscode-bulk-edit-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-onsUrBTldwCin487tGkS0qfaKY9Du5n434tjCrfict9EBbvK08Gv7rpgY92qfX5Kt4R10zcl+G9LzOS/NAiAsQ=="],
+
+    "@codingame/monaco-vscode-configuration-service-override": ["@codingame/monaco-vscode-configuration-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0" } }, "sha512-zuDi/YpPloTD5iFChjjTNQL060thGJKHHincl+OZQmQFKaWk+WcAtl8aizaG6ItwAm3QByhxAOIgyPua7iamnA=="],
+
+    "@codingame/monaco-vscode-editor-api": ["@codingame/monaco-vscode-editor-api@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-btwnwatbKuhxCyY6n9gBJkGcRGhZrJTzhoPnbW/fyC4O9yXX4WxwiAQzJdYpn/0YDlehcczgAWftXiCrMcCNYA=="],
+
+    "@codingame/monaco-vscode-editor-service-override": ["@codingame/monaco-vscode-editor-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-1mSHWHSHWO0SzhugmhyBJzfgqe+nUzCpmyeehk38P0XPFuhc66exwWslPbBWVGHqMYuiN3yS/5YQ0VDbnYwqWA=="],
+
+    "@codingame/monaco-vscode-environment-service-override": ["@codingame/monaco-vscode-environment-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-FspOVaxbjoLIjoH+VQF4xigzXcpOT8/3wpqhw4SKXpNQGOAKcPosUtwa/TPlfOwi/6x3h/f/PAPDiGDMpzbhMg=="],
+
+    "@codingame/monaco-vscode-extension-api": ["@codingame/monaco-vscode-extension-api@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-extensions-service-override": "24.2.0" } }, "sha512-NiPXvGwIIQua4m3cUjL4JaGZms5lMCJqpHYSW5MbyHVdFKxE0Ns18ihk5sMuCj7lSuci24okWyklH+XZkiI1/g=="],
+
+    "@codingame/monaco-vscode-extensions-service-override": ["@codingame/monaco-vscode-extensions-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0" } }, "sha512-PZynlQlVatpaWDpaDqH3LvgiuwTzw3EJEIs+c4fU4+3zMJPQMehzJ28HOUXfTjmd877x4atx41l0n4gMWhiufg=="],
+
+    "@codingame/monaco-vscode-files-service-override": ["@codingame/monaco-vscode-files-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-uB7WtSjDeIg64gz6CzF+UsYCFSe8Ejjd6x8aHicIDarLyPO1oU7WVNWbuI6T9eIj/laFJKDHQuWraxeq1ed6uQ=="],
+
+    "@codingame/monaco-vscode-host-service-override": ["@codingame/monaco-vscode-host-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-/e2cXp2drA1aL8fhEsH2TplGMZnvoceU0NUvRCn0UOC1quq7/OyxDVfYnQfK0LHuTUXUrbruV3QSujQtc/fgxQ=="],
+
+    "@codingame/monaco-vscode-keybindings-service-override": ["@codingame/monaco-vscode-keybindings-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0" } }, "sha512-V4x03mFTTkS+Uyq8zKYDI6niVtW8rHTekqm2qwXTRioSFJdRgp6HLSXaDK8b1rY30VRMGNjE8X9S6vHLA/lZ9Q=="],
+
+    "@codingame/monaco-vscode-language-pack-cs": ["@codingame/monaco-vscode-language-pack-cs@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-tueyoUO0irwqXzr1TCEkLoDgKaVIJ+9gg8upgFje8CCZ51l6a9DcQ+XqMJzN09z9j/FDogeeFprMfIadiULnXA=="],
+
+    "@codingame/monaco-vscode-language-pack-de": ["@codingame/monaco-vscode-language-pack-de@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-S1zOG7eNd9TiXNVQ8wNDLwUGnAvFpG1k40/KGxBMNOdbJiizWfVY7WoqUebLQYm5fNK5BijIDv1c+WlwygX+cw=="],
+
+    "@codingame/monaco-vscode-language-pack-es": ["@codingame/monaco-vscode-language-pack-es@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-9Y0yoT0B2OqQO3R59HKZ9F5HhDvIlIUdyDdOwm+y+UOTLLjStwnNLL50mlXeYfFocqOWiyiilD82mEnKeGtLAA=="],
+
+    "@codingame/monaco-vscode-language-pack-fr": ["@codingame/monaco-vscode-language-pack-fr@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-R19EKNJdC7eEuOQOdt+hg+l5xcYpfoh5t97OquNm0nzOEvAN6KVWPNuk1Bsd5S8c2429ds1CTa/SkwtlmmyISw=="],
+
+    "@codingame/monaco-vscode-language-pack-it": ["@codingame/monaco-vscode-language-pack-it@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-Tsmx3yI07shL5a51k4MJytGeWVEXiWAglGfkSiwlB/qba0RQKURRIHwJNh+WiQnjgkF+RdToC8qezWcwx6BF3g=="],
+
+    "@codingame/monaco-vscode-language-pack-ja": ["@codingame/monaco-vscode-language-pack-ja@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-e0+YFiIPj1Ve6XAq1zQUcshpLvtK8+94VEgg+RPNzAWenPT9TKQYFzeVkzwX6dAqOfM2ywBgv1YkQIUfWTcsQQ=="],
+
+    "@codingame/monaco-vscode-language-pack-ko": ["@codingame/monaco-vscode-language-pack-ko@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-zmg71p2YzkhP/rhS6fP9VI4DHi1f7/QiZNBeyh+cCvturqLZq8mus6Az8pdKAUsX8qbhrdPawleS3bQ72ljORw=="],
+
+    "@codingame/monaco-vscode-language-pack-pl": ["@codingame/monaco-vscode-language-pack-pl@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-+bIzkMFfyUnHHO83FbBQnIVY2Hpnx28ef3Sn0JuViQXHKf3fVjk+GylCl31PV0oKesigPjHftkUFAbQCdNQL/w=="],
+
+    "@codingame/monaco-vscode-language-pack-pt-br": ["@codingame/monaco-vscode-language-pack-pt-br@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-glBQ70KT1O4ipL6j4Zi2tle/znbsw5R1DvfZcl+Png8/ia6XVk8j1PMRT0wKbPdA6F7bGCKqmDqb1AQX4wqXvQ=="],
+
+    "@codingame/monaco-vscode-language-pack-qps-ploc": ["@codingame/monaco-vscode-language-pack-qps-ploc@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-nbA7USPt5ja36+0V8Uj/fWyKv24TQAYTg7MBA6Yy8pueerHGlcnQzXawNsavWTOuZ9goEBqJrOTz0He3310Nmg=="],
+
+    "@codingame/monaco-vscode-language-pack-ru": ["@codingame/monaco-vscode-language-pack-ru@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-yujqccZ8KWciPK5PkOPb3qNV6xGFcsA4GNYIxoM/L+Us4kJgLplChXhYdZfVmP20bw76axlj0d2D97rjOQjZ+w=="],
+
+    "@codingame/monaco-vscode-language-pack-tr": ["@codingame/monaco-vscode-language-pack-tr@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-v/KRAWvtYp4RHW+OxgKrFoHnT9Kjs2QmGspgVEncfVJ3DEYu1mb0voCyVvKbNaf2o3jQe9fMWNifBuECOnmRQQ=="],
+
+    "@codingame/monaco-vscode-language-pack-zh-hans": ["@codingame/monaco-vscode-language-pack-zh-hans@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-lulx1Ii90ZHtExDYftMBzqr8vCkLGHYq9gk1V3ZiKixo22Ma+qqL5k0BWL4+NPuqHFS3v08fOnJIN67CyO9cfg=="],
+
+    "@codingame/monaco-vscode-language-pack-zh-hant": ["@codingame/monaco-vscode-language-pack-zh-hant@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-kRHZpfp1jmj8uHW84J62dzrUsiJPVJ2+3K0CB7OEPGCd0H1SuCEMrhvjB6zpb8XWOzUQVA3Ty9K2N59UA0szww=="],
+
+    "@codingame/monaco-vscode-languages-service-override": ["@codingame/monaco-vscode-languages-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0" } }, "sha512-zOPvT6N7bceSlHlgO0Z+09G1blbCu1OXQPFO7WzqGp4kRwQJwidj7mNfN0oa2n1Y1IxfjiTUgCQEW7LRIqgwDA=="],
+
+    "@codingame/monaco-vscode-layout-service-override": ["@codingame/monaco-vscode-layout-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-vxS/77lY2EmVCVknevKdwLuimoB4r3t6MATqjSFV05RO3YJ/VEnpddxS+Lr3oRG25fMNQ83LAu1KQWZZ/7jG4w=="],
+
+    "@codingame/monaco-vscode-localization-service-override": ["@codingame/monaco-vscode-localization-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-tB6iysLBpNpOC1iti3HjEeOxhNu4jKvsfWj26J1wuweLH02+jY4hpJksX9uWt2AjPr8+g9VDqT6i5bWr+grhNQ=="],
+
+    "@codingame/monaco-vscode-log-service-override": ["@codingame/monaco-vscode-log-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-environment-service-override": "24.2.0" } }, "sha512-IsVNeBIyk6RaumaiNtg3eL8SHjqolbTxZ6la8PggfEskIzueHbq8dWmIlbVZNm4+fFQ7l66h4Ektus9F4dWAjQ=="],
+
+    "@codingame/monaco-vscode-model-service-override": ["@codingame/monaco-vscode-model-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-Xya1ZORVATZKAFQhh+1/D6+1RNynaOnxoiw3T7ekBsvyw4A6GTwh3TZDZaPbF7QG7sxCf8BUx5gBM/4x1ytwcw=="],
+
+    "@codingame/monaco-vscode-monarch-service-override": ["@codingame/monaco-vscode-monarch-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-2PKfAxiBq4fgOgf1LXULrAP8tncU9zGobHnihhhyM1qPw7AVNUOgvA3DI/eq+gn+CryifJBXpRNBGwCr7eYxLA=="],
+
+    "@codingame/monaco-vscode-quickaccess-service-override": ["@codingame/monaco-vscode-quickaccess-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-99BGm/pkFpBfg8ObJhXeCBlZwkoFF9U3lq38txPImdpHBFWsneyE5S4wS8YmJ8OZ17FRyqlUCuwOHsnsl9yj6A=="],
+
+    "@codingame/monaco-vscode-textmate-service-override": ["@codingame/monaco-vscode-textmate-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0", "vscode-oniguruma": "1.7.0", "vscode-textmate": "9.2.1" } }, "sha512-cvEjJD/rHoKb72/MKjlzMkJippZMBCyiXa/Vl3d9pEPxeJ4HOY9mvS+8LsLh7LWGadWaUa+sWY4UIyX0bqQd4A=="],
+
+    "@codingame/monaco-vscode-theme-defaults-default-extension": ["@codingame/monaco-vscode-theme-defaults-default-extension@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-O5dy40AH14Eyyb6rvu2HpxpmZ5vNH/R1GDm/NgSVdYQ9/VBz6wvnX7YemOo8BdZxViCdEiu7539bakQ6QkI/xA=="],
+
+    "@codingame/monaco-vscode-theme-service-override": ["@codingame/monaco-vscode-theme-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-files-service-override": "24.2.0" } }, "sha512-UrNske6wtBPYhZbe0vmY2nt92ypP7PSfy2x+sYxCSDP7LnpQChqgG/ZFE2yx40d2Re5oPIN6tBNn2dqyqy/NBg=="],
+
+    "@codingame/monaco-vscode-view-banner-service-override": ["@codingame/monaco-vscode-view-banner-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-fl2c2/em0BOtjxaKzMkeGtcVs296uR0MvQoANQwMtch3PvWI8MS3zX6+AUe48pxmWRnxlFthTUE3Uq1lWOTtoA=="],
+
+    "@codingame/monaco-vscode-view-common-service-override": ["@codingame/monaco-vscode-view-common-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-bulk-edit-service-override": "24.2.0" } }, "sha512-lAG/KP8pg0kUAIzOB4RDs0s3BFAZwjHD5n2Y1J7Y7RBuT55FwJu+AdY7fYBYEHFvXP3RYvoWbW2uGj/Pc46+Sg=="],
+
+    "@codingame/monaco-vscode-view-status-bar-service-override": ["@codingame/monaco-vscode-view-status-bar-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-elYwMo/FYz2WKgD0n4bH3o2/yNfWSHdd9Lzeumh+qFaUcOsXPpCexWOil7S3WLZqVuAq9FRR2Gk9XZdx/srGdg=="],
+
+    "@codingame/monaco-vscode-view-title-bar-service-override": ["@codingame/monaco-vscode-view-title-bar-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0" } }, "sha512-0YiP4D9U0OE+ruE+JuJK8y3C1TLyJo/dDAD0C6AS1RaUoHfY2bgyvmkdRfIfsmIRPdiNO/XzH8OMBxRvI/YQpg=="],
+
+    "@codingame/monaco-vscode-views-service-override": ["@codingame/monaco-vscode-views-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-keybindings-service-override": "24.2.0", "@codingame/monaco-vscode-layout-service-override": "24.2.0", "@codingame/monaco-vscode-quickaccess-service-override": "24.2.0", "@codingame/monaco-vscode-view-common-service-override": "24.2.0" } }, "sha512-PLVJSsiHpZlcCiZI2VR0Zq/31VtM9nE4Tc1NixNAbtCd/D5qnam2prlW6zO7ZFj6VA8JTOSVOZB1lGTL1Q7piw=="],
+
+    "@codingame/monaco-vscode-workbench-service-override": ["@codingame/monaco-vscode-workbench-service-override@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-keybindings-service-override": "24.2.0", "@codingame/monaco-vscode-quickaccess-service-override": "24.2.0", "@codingame/monaco-vscode-view-banner-service-override": "24.2.0", "@codingame/monaco-vscode-view-common-service-override": "24.2.0", "@codingame/monaco-vscode-view-status-bar-service-override": "24.2.0", "@codingame/monaco-vscode-view-title-bar-service-override": "24.2.0" } }, "sha512-hKQ55pnBr0A//1LyBET7skwmzc80TnwUP61YZEz3LOP6cCkGPXsM+miY0QYWH/2u9Dl44AzenIoxJ8YxQZEihg=="],
 
     "@esbuild/aix-ppc64": ["@esbuild/aix-ppc64@0.25.2", "", { "os": "aix", "cpu": "ppc64" }, "sha512-wCIboOL2yXZym2cgm6mlA742s9QeJ8DjGVaL39dLN4rRwrOgOyYSnOaFPhKZGLb2ngj4EyfAFjsNJwPXZvseag=="],
 
@@ -230,6 +319,8 @@
 
     "@tauri-apps/cli-win32-x64-msvc": ["@tauri-apps/cli-win32-x64-msvc@2.5.0", "", { "os": "win32", "cpu": "x64" }, "sha512-lj43EFYbnAta8pd9JnUq87o+xRUR0odz+4rixBtTUwUgdRdwQ2V9CzFtsMu6FQKpFQ6mujRK6P1IEwhL6ADRsQ=="],
 
+    "@tauri-apps/plugin-clipboard-manager": ["@tauri-apps/plugin-clipboard-manager@2.3.2", "", { "dependencies": { "@tauri-apps/api": "^2.8.0" } }, "sha512-CUlb5Hqi2oZbcZf4VUyUH53XWPPdtpw43EUpCza5HWZJwxEoDowFzNUDt1tRUXA8Uq+XPn17Ysfptip33sG4eQ=="],
+
     "@tauri-apps/plugin-fs": ["@tauri-apps/plugin-fs@2.2.1", "", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-KdGzvvA4Eg0Dhw55MwczFbjxLxsTx0FvwwC/0StXlr6IxwPUxh5ziZQoaugkBFs8t+wfebdQrjBEzd8NmmDXNw=="],
 
     "@tauri-apps/plugin-opener": ["@tauri-apps/plugin-opener@2.2.6", "", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-bSdkuP71ZQRepPOn8BOEdBKYJQvl6+jb160QtJX/i2H9BF6ZySY/kYljh76N2Ne5fJMQRge7rlKoStYQY5Jq1w=="],
@@ -248,9 +339,17 @@
 
     "@types/node": ["@types/node@25.0.3", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA=="],
 
+    "@types/trusted-types": ["@types/trusted-types@2.0.7", "", {}, "sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw=="],
+
     "@vitejs/plugin-react": ["@vitejs/plugin-react@4.4.1", "", { "dependencies": { "@babel/core": "^7.26.10", "@babel/plugin-transform-react-jsx-self": "^7.25.9", "@babel/plugin-transform-react-jsx-source": "^7.25.9", "@types/babel__core": "^7.20.5", "react-refresh": "^0.17.0" }, "peerDependencies": { "vite": "^4.2.0 || ^5.0.0 || ^6.0.0" } }, "sha512-IpEm5ZmeXAP/osiBXVVP5KjFMzbWOonMs0NaQQl+xYnUAcq4oHUBsF2+p4MgKWG4YMmFYJU8A6sxRPuowllm6w=="],
 
+    "@vscode/iconv-lite-umd": ["@vscode/iconv-lite-umd@0.7.1", "", {}, "sha512-tK6k0DXFHW7q5+GGuGZO+phpAqpxO4WXl+BLc/8/uOk3RsM2ssAL3CQUQDb1TGfwltjsauhN6S4ghYZzs4sPFw=="],
+
     "autoprefixer": ["autoprefixer@10.4.21", "", { "dependencies": { "browserslist": "^4.24.4", "caniuse-lite": "^1.0.30001702", "fraction.js": "^4.3.7", "normalize-range": "^0.1.2", "picocolors": "^1.1.1", "postcss-value-parser": "^4.2.0" }, "peerDependencies": { "postcss": "^8.1.0" }, "bin": "bin/autoprefixer" }, "sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ=="],
+
+    "balanced-match": ["balanced-match@1.0.2", "", {}, "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="],
+
+    "brace-expansion": ["brace-expansion@2.0.2", "", { "dependencies": { "balanced-match": "^1.0.0" } }, "sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ=="],
 
     "browserslist": ["browserslist@4.24.4", "", { "dependencies": { "caniuse-lite": "^1.0.30001688", "electron-to-chromium": "^1.5.73", "node-releases": "^2.0.19", "update-browserslist-db": "^1.1.1" }, "bin": "cli.js" }, "sha512-KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A=="],
 
@@ -263,6 +362,8 @@
     "debug": ["debug@4.4.0", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA=="],
 
     "detect-libc": ["detect-libc@2.0.3", "", {}, "sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw=="],
+
+    "dompurify": ["dompurify@3.3.1", "", { "optionalDependencies": { "@types/trusted-types": "^2.0.7" } }, "sha512-qkdCKzLNtrgPFP1Vo+98FRzJnBRGe4ffyCea9IwHB1fyxPOeNTHpLKYGd4Uk9xvNoH0ZoOjwZxNptyMwqrId1Q=="],
 
     "electron-to-chromium": ["electron-to-chromium@1.5.139", "", {}, "sha512-GGnRYOTdN5LYpwbIr0rwP/ZHOQSvAF6TG0LSzp28uCBb9JiXHJGmaaKw29qjNJc5bGnnp6kXJqRnGMQoELwi5w=="],
 
@@ -287,6 +388,8 @@
     "jiti": ["jiti@2.4.2", "", { "bin": "lib/jiti-cli.mjs" }, "sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A=="],
 
     "js-tokens": ["js-tokens@4.0.0", "", {}, "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="],
+
+    "jschardet": ["jschardet@3.1.4", "", {}, "sha512-/kmVISmrwVwtyYU40iQUOp3SUPk2dhNCMsZBQX0R1/jZ8maaXJ/oZIzUOiyOqcgtLnETFKYChbJ5iDC/eWmFHg=="],
 
     "jsesc": ["jsesc@3.1.0", "", { "bin": "bin/jsesc" }, "sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA=="],
 
@@ -318,7 +421,13 @@
 
     "lru-cache": ["lru-cache@5.1.1", "", { "dependencies": { "yallist": "^3.0.2" } }, "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="],
 
+    "marked": ["marked@14.0.0", "", { "bin": { "marked": "bin/marked.js" } }, "sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ=="],
+
+    "minimatch": ["minimatch@5.1.6", "", { "dependencies": { "brace-expansion": "^2.0.1" } }, "sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g=="],
+
     "monaco-editor": ["monaco-editor@0.52.2", "", {}, "sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ=="],
+
+    "monaco-languageclient": ["monaco-languageclient@10.5.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "^24.2.0", "@codingame/monaco-vscode-configuration-service-override": "^24.2.0", "@codingame/monaco-vscode-editor-api": "^24.2.0", "@codingame/monaco-vscode-editor-service-override": "^24.2.0", "@codingame/monaco-vscode-extension-api": "^24.2.0", "@codingame/monaco-vscode-extensions-service-override": "^24.2.0", "@codingame/monaco-vscode-language-pack-cs": "^24.2.0", "@codingame/monaco-vscode-language-pack-de": "^24.2.0", "@codingame/monaco-vscode-language-pack-es": "^24.2.0", "@codingame/monaco-vscode-language-pack-fr": "^24.2.0", "@codingame/monaco-vscode-language-pack-it": "^24.2.0", "@codingame/monaco-vscode-language-pack-ja": "^24.2.0", "@codingame/monaco-vscode-language-pack-ko": "^24.2.0", "@codingame/monaco-vscode-language-pack-pl": "^24.2.0", "@codingame/monaco-vscode-language-pack-pt-br": "^24.2.0", "@codingame/monaco-vscode-language-pack-qps-ploc": "^24.2.0", "@codingame/monaco-vscode-language-pack-ru": "^24.2.0", "@codingame/monaco-vscode-language-pack-tr": "^24.2.0", "@codingame/monaco-vscode-language-pack-zh-hans": "^24.2.0", "@codingame/monaco-vscode-language-pack-zh-hant": "^24.2.0", "@codingame/monaco-vscode-languages-service-override": "^24.2.0", "@codingame/monaco-vscode-localization-service-override": "^24.2.0", "@codingame/monaco-vscode-log-service-override": "^24.2.0", "@codingame/monaco-vscode-model-service-override": "^24.2.0", "@codingame/monaco-vscode-monarch-service-override": "^24.2.0", "@codingame/monaco-vscode-textmate-service-override": "^24.2.0", "@codingame/monaco-vscode-theme-defaults-default-extension": "^24.2.0", "@codingame/monaco-vscode-theme-service-override": "^24.2.0", "@codingame/monaco-vscode-views-service-override": "^24.2.0", "@codingame/monaco-vscode-workbench-service-override": "^24.2.0", "vscode": "npm:@codingame/monaco-vscode-extension-api@^24.2.0", "vscode-languageclient": "~9.0.1", "vscode-languageserver-protocol": "~3.17.5", "vscode-ws-jsonrpc": "~3.5.0" } }, "sha512-stKCyDc/Nw4aZ2oP1M+7fye+rFi8PB0rciWzqJq5qFaDJnj9GQMCyE2oVeo1BqGy5v2p2G/gYkt8v00kuXvZkQ=="],
 
     "ms": ["ms@2.1.3", "", {}, "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="],
 
@@ -346,7 +455,7 @@
 
     "scheduler": ["scheduler@0.23.2", "", { "dependencies": { "loose-envify": "^1.1.0" } }, "sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ=="],
 
-    "semver": ["semver@6.3.1", "", { "bin": "bin/semver.js" }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
+    "semver": ["semver@7.7.3", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q=="],
 
     "source-map-js": ["source-map-js@1.2.1", "", {}, "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA=="],
 
@@ -368,6 +477,30 @@
 
     "vite": ["vite@6.3.2", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.4.3", "picomatch": "^4.0.2", "postcss": "^8.5.3", "rollup": "^4.34.9", "tinyglobby": "^0.2.12" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^18.0.0 || ^20.0.0 || >=22.0.0", "jiti": ">=1.21.0", "less": "*", "lightningcss": "^1.21.0", "sass": "*", "sass-embedded": "*", "stylus": "*", "sugarss": "*", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "less", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": "bin/vite.js" }, "sha512-ZSvGOXKGceizRQIZSz7TGJ0pS3QLlVY/9hwxVh17W3re67je1RKYzFHivZ/t0tubU78Vkyb9WnHPENSBCzbckg=="],
 
+    "vscode": ["@codingame/monaco-vscode-extension-api@24.2.0", "", { "dependencies": { "@codingame/monaco-vscode-api": "24.2.0", "@codingame/monaco-vscode-extensions-service-override": "24.2.0" } }, "sha512-NiPXvGwIIQua4m3cUjL4JaGZms5lMCJqpHYSW5MbyHVdFKxE0Ns18ihk5sMuCj7lSuci24okWyklH+XZkiI1/g=="],
+
+    "vscode-jsonrpc": ["vscode-jsonrpc@8.2.0", "", {}, "sha512-C+r0eKJUIfiDIfwJhria30+TYWPtuHJXHtI7J0YlOmKAo7ogxP20T0zxB7HZQIFhIyvoBPwWskjxrvAtfjyZfA=="],
+
+    "vscode-languageclient": ["vscode-languageclient@9.0.1", "", { "dependencies": { "minimatch": "^5.1.0", "semver": "^7.3.7", "vscode-languageserver-protocol": "3.17.5" } }, "sha512-JZiimVdvimEuHh5olxhxkht09m3JzUGwggb5eRUkzzJhZ2KjCN0nh55VfiED9oez9DyF8/fz1g1iBV3h+0Z2EA=="],
+
+    "vscode-languageserver-protocol": ["vscode-languageserver-protocol@3.17.5", "", { "dependencies": { "vscode-jsonrpc": "8.2.0", "vscode-languageserver-types": "3.17.5" } }, "sha512-mb1bvRJN8SVznADSGWM9u/b07H7Ecg0I3OgXDuLdn307rl/J3A9YD6/eYOssqhecL27hK1IPZAsaqh00i/Jljg=="],
+
+    "vscode-languageserver-types": ["vscode-languageserver-types@3.17.5", "", {}, "sha512-Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg=="],
+
+    "vscode-oniguruma": ["vscode-oniguruma@1.7.0", "", {}, "sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA=="],
+
+    "vscode-textmate": ["vscode-textmate@9.2.1", "", {}, "sha512-eXiUi2yYFv9bdvgrYtJynA7UemCEkpVNE50S9iBBA08LYG5t9+/TB+8IRS/YoYOubCez2OkSyZ1Q12eQMwzbrw=="],
+
+    "vscode-ws-jsonrpc": ["vscode-ws-jsonrpc@3.5.0", "", { "dependencies": { "vscode-jsonrpc": "~8.2.1" } }, "sha512-13ZDy7Od4AfEPK2HIfY3DtyRi4FVsvFql1yobVJrpIoHOKGGJpIjVvIJpMxkrHzCZzWlYlg+WEu2hrYkCTvM0Q=="],
+
     "yallist": ["yallist@3.1.1", "", {}, "sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g=="],
+
+    "@babel/core/semver": ["semver@6.3.1", "", { "bin": "bin/semver.js" }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
+
+    "@babel/helper-compilation-targets/semver": ["semver@6.3.1", "", { "bin": "bin/semver.js" }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
+
+    "@tauri-apps/plugin-clipboard-manager/@tauri-apps/api": ["@tauri-apps/api@2.9.1", "", {}, "sha512-IGlhP6EivjXHepbBic618GOmiWe4URJiIeZFlB7x3czM0yDHHYviH1Xvoiv4FefdkQtn6v7TuwWCRfOGdnVUGw=="],
+
+    "vscode-ws-jsonrpc/vscode-jsonrpc": ["vscode-jsonrpc@8.2.1", "", {}, "sha512-kdjOSJ2lLIn7r1rtrMbbNCHjyMPfRnowdKjBQ+mGq6NAW5QY2bEZC/khaC5OR8svbbjvLEaIXkOq45e2X9BIbQ=="],
   }
 }

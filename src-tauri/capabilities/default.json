@@ -8,6 +8,10 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "fs:allow-appdata-read"
+    "fs:allow-appdata-read",
+    "core:event:allow-emit",
+    "core:event:allow-emit-to",
+    "core:event:allow-listen",
+    "clipboard-manager:default"
   ]
 }
