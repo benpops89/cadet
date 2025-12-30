@@ -99,11 +99,7 @@ export default function App() {
     <div className="flex flex-col h-screen">
       <div className="flex flex-1 min-h-0">
         {/* Global Sidebar */}
-        <Sidebar
-          isGenerating={isGenerating}
-          onGenerate={handleGenerate}
-          onReset={handleReset}
-        />
+        <Sidebar onGenerate={handleGenerate} onReset={handleReset} />
 
         {/* Main area (Editor + Renderer) */}
         <div className="flex flex-1 min-w-0 main-container">

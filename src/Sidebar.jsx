@@ -6,7 +6,7 @@ import {
   ArrowPathIcon,
 } from "@heroicons/react/24/solid";
 
-export default function Sidebar({ isGenerating, onGenerate, onReset }) {
+export default function Sidebar({ onGenerate, onReset }) {
   return (
     <div className="w-12 min-w-[48px] h-screen flex flex-col items-center py-4 bg-[#1e1e1e] border-r border-r-[rgba(255,255,255,0.1)] space-y-4">
       <button
