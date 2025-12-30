@@ -125,18 +125,14 @@ export async function initializeLSPClient(): Promise<MonacoLanguageClient> {
   const initPromise = (async () => {
     // Initialize VS Code services if not already done
     if (!servicesInitialized) {
-      console.log("Initializing VS Code services...");
       await initialize({
         clipboardService: new SyncDescriptor(TauriClipboardService),
       });
       servicesInitialized = true;
-      console.log("VS Code services initialized");
     }
 
     // Start the LSP server via Tauri
-    console.log("Starting LSP server...");
     await invoke("lsp_start");
-    console.log("LSP server started");
 
     // Create message transports over Tauri events
     const reader = new TauriMessageReader();

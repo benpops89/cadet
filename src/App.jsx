@@ -6,7 +6,6 @@ import Renderer from "./Renderer";
 import Sidebar from "./Sidebar";
 
 export default function App() {
-  console.log("App component rendering...");
   const [modelPath, setModelPath] = useState(null);
   const [code, setCode] = useState(DEFAULT_CODE);
   const [isGenerating, setIsGenerating] = useState(false);

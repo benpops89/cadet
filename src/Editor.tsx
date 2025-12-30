@@ -40,8 +40,6 @@ export default function Editor({
   };
 
   const handleEditorDidMount = async (editor: any, monaco: any) => {
-    console.log("Monaco editor mounted");
-
     try {
       // Give the Monaco model a real file:// URI.
       // `ty` rejects Monaco's default `inmemory://model/...` document/workspace URIs.
@@ -62,15 +60,12 @@ export default function Editor({
         previousModel.dispose();
       }
 
-      console.log("Initializing LSP client...");
       const client = await initializeLSPClient();
 
       // Ensure the JSON-RPC / initialize handshake completed.
       if (typeof (client as any).onReady === "function") {
         await (client as any).onReady();
       }
-
-      console.log("LSP client initialized successfully");
 
       const documentUri = modelUri.toString();
       let version = 1;
