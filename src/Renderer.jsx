@@ -50,16 +50,29 @@ const Renderer = ({ modelPath, modelRevision }) => {
     scene.add(ambientLight);
 
     const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
-    directionalLight1.position.set(1, 1, 1).normalize();
+    directionalLight1.position.set(1, 1, 1);
     directionalLight1.castShadow = true;
     directionalLight1.shadow.mapSize.width = 2048;
     directionalLight1.shadow.mapSize.height = 2048;
-    directionalLight1.shadow.camera.near = 0.5;
-    directionalLight1.shadow.camera.far = 50;
+
+    // These defaults are overridden on model load to fit
+    // the shadow frustum to the model's bounds.
+    directionalLight1.shadow.camera.near = 0.1;
+    directionalLight1.shadow.camera.far = 100;
     directionalLight1.shadow.camera.left = -10;
     directionalLight1.shadow.camera.right = 10;
     directionalLight1.shadow.camera.top = 10;
     directionalLight1.shadow.camera.bottom = -10;
+
+    // Reduce self-shadowing artifacts ("shadow acne")
+    directionalLight1.shadow.bias = -0.00005;
+    directionalLight1.shadow.normalBias = 0.02;
+
+    const directionalLightTarget = new THREE.Object3D();
+    directionalLightTarget.position.set(0, 0, 0);
+    scene.add(directionalLightTarget);
+    directionalLight1.target = directionalLightTarget;
+
     scene.add(directionalLight1);
 
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -82,7 +95,15 @@ const Renderer = ({ modelPath, modelRevision }) => {
     };
     animate();
 
-    meshRef.current = { scene, camera, renderer, controls, axesHelper };
+    meshRef.current = {
+      scene,
+      camera,
+      renderer,
+      controls,
+      axesHelper,
+      directionalLight1,
+      directionalLightTarget,
+    };
 
     const handleResize = () => {
       if (!containerRef.current) return;
@@ -156,11 +177,14 @@ const Renderer = ({ modelPath, modelRevision }) => {
     const loadSTL = async () => {
       setIsLoading(true);
       try {
-        const { scene, camera, controls } = meshRef.current;
+        const { scene, camera, controls, directionalLight1 } = meshRef.current;
         const loader = new STLLoader();
 
         const arrayBuffer = await readFile(modelPath, { baseDir: BaseDirectory.AppData });
         const geometry = loader.parse(arrayBuffer.buffer);
+
+        // Some STLs omit normals; ensure lighting behaves consistently.
+        geometry.computeVertexNormals();
 
         if (meshRef.current.mesh) {
           scene.remove(meshRef.current.mesh);
@@ -186,7 +210,7 @@ const Renderer = ({ modelPath, modelRevision }) => {
           roughness: 0.3,
           metalness: 0.6,
           flatShading: false,
-          side: THREE.DoubleSide,
+          side: THREE.FrontSide,
         });
 
         const mesh = new THREE.Mesh(geometry, material);
@@ -202,6 +226,21 @@ const Renderer = ({ modelPath, modelRevision }) => {
         meshRef.current.mesh = mesh;
 
         const radius = geometry.boundingSphere.radius;
+
+        // Fit the shadow camera to the current model so we don't
+        // get a "square" shadowed region / precision artifacts.
+        if (directionalLight1?.shadow?.camera) {
+          const shadowCam = directionalLight1.shadow.camera;
+          const shadowExtent = radius * 1.5;
+          shadowCam.left = -shadowExtent;
+          shadowCam.right = shadowExtent;
+          shadowCam.top = shadowExtent;
+          shadowCam.bottom = -shadowExtent;
+          shadowCam.near = 0.1;
+          shadowCam.far = Math.max(100, radius * 10);
+          shadowCam.updateProjectionMatrix();
+        }
+
         const distance = radius * 2.5;
         camera.position.set(distance, distance, distance);
         camera.lookAt(0, 0, 0);
