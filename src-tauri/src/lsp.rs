@@ -69,14 +69,6 @@ fn log_line(logger: &SharedLogger, tag: &str, message: &str) {
     }
 }
 
-fn project_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..")
-}
-
-fn ty_path() -> PathBuf {
-    project_root().join(".venv").join("bin").join("ty")
-}
-
 pub struct LSPState {
     pub child: Arc<Mutex<Option<Child>>>,
     pub stdin: Arc<Mutex<Option<Arc<Mutex<std::process::ChildStdin>>>>>,
@@ -93,6 +85,33 @@ impl LSPState {
     }
 }
 
+fn ty_binary_path(app: &AppHandle) -> Result<PathBuf, String> {
+    #[cfg(windows)]
+    let ty_name = "ty.exe";
+    #[cfg(not(windows))]
+    let ty_name = "ty";
+
+    // In debug builds, Tauri's `resource_dir()` points at `target/...`, but our
+    // development layout keeps `ty` in `src-tauri/bin`.
+    #[cfg(debug_assertions)]
+    {
+        let _ = app;
+        return Ok(PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("bin")
+            .join(ty_name));
+    }
+
+    // In release (packaged) builds, ship `ty` under `resources/bin/`.
+    #[cfg(not(debug_assertions))]
+    {
+        let resource_dir = app
+            .path()
+            .resource_dir()
+            .map_err(|e| format!("Failed to resolve resource dir: {e}"))?;
+        return Ok(resource_dir.join("bin").join(ty_name));
+    }
+}
+
 pub fn start_lsp_server(
     app_handle: AppHandle,
     state: tauri::State<LSPState>,
@@ -104,21 +123,33 @@ pub fn start_lsp_server(
         return Ok(());
     }
 
-    let ty = ty_path();
-    if !ty.exists() {
-        return Err(format!("ty binary not found at {}", ty.display()));
-    }
+    let ty_path = ty_binary_path(&app_handle)?;
 
-    // Start ty server
-    let mut child = Command::new(&ty)
+    // Set the VIRTUAL_ENV environment variable so ty knows which python
+    // instance to use. For dev it will be repo root
+    // for production venv will be in /var/lib/cadet
+    let venv_dir = if cfg!(debug_assertions) {
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../.venv")
+    } else {
+        PathBuf::from("/var/lib/cadet/.venv")
+    };
+
+    std::env::set_var("VIRTUAL_ENV", &venv_dir);
+
+    let mut command = Command::new(&ty_path);
+    command
         .arg("server")
-        .current_dir(project_root())
-        .env("VIRTUAL_ENV", project_root().join(".venv"))
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .map_err(|e| format!("Failed to start ty server: {}", e))?;
+        .stderr(Stdio::piped());
+
+    // Start ty server
+    let mut child = command.spawn().map_err(|e| {
+        format!(
+            "Failed to start bundled ty server ({}): {e}",
+            ty_path.display()
+        )
+    })?;
 
     // If the process exits immediately, surface the real stderr.
     for _ in 0..10 {

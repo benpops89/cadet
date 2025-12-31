@@ -1,7 +1,19 @@
 import sys
 import importlib.util
 from pathlib import Path
-from cadquery.occ_impl.exporters import export, ExportTypes
+
+try:
+    from cadquery.occ_impl.exporters import export, ExportTypes
+except ModuleNotFoundError as e:
+    missing = getattr(e, "name", None) or "cadquery"
+    print(
+        "Python dependency missing: "
+        + missing
+        + ". Cadet requires a Python environment with CadQuery installed. "
+        + "Install it (and ty) with: pip install cadquery ty",
+        file=sys.stderr,
+    )
+    sys.exit(1)
 
 
 def run_user_code(code: str, export_type: str, data_dir: str):
@@ -17,6 +29,15 @@ def run_user_code(code: str, export_type: str, data_dir: str):
 
     try:
         spec.loader.exec_module(user_module)
+    except ModuleNotFoundError as e:
+        missing = getattr(e, "name", None) or "<unknown module>"
+        print(
+            f"Error running user code: missing Python module '{missing}'. "
+            "Ensure your Python environment has CadQuery installed (pip install cadquery) "
+            "and any other imports used by your script.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
     except Exception as e:
         print(f"Error running user code: {e}", file=sys.stderr)
         sys.exit(1)
