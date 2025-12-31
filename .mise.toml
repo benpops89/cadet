@@ -18,4 +18,7 @@ run = "bun tauri dev"
 
 [tasks.build]
 description = "Build the app for production"
-run = "bun tauri build"
+run = [
+  "python -m py_compile src-tauri/python/wrapper.py",
+  "bun tauri build"
+]

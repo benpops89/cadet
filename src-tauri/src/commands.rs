@@ -31,15 +31,24 @@ fn resolve_python() -> PathBuf {
 }
 
 fn resolve_wrapper(app: &tauri::AppHandle) -> Result<PathBuf, String> {
-    let bundled = app
+    let resource_dir = app
         .path()
         .resource_dir()
         .map_err(|e| format!("Failed to resolve resource dir: {e}"))?
-        .join("python")
-        .join("wrapper.py");
+        .join("python");
 
-    if bundled.exists() {
-        return Ok(bundled);
+    // Try to use compiled .pyc file in production
+    let pyc_file = resource_dir
+        .join("__pycache__")
+        .join("wrapper.cpython-311.pyc");
+    if cfg!(not(debug_assertions)) && pyc_file.exists() {
+        return Ok(pyc_file);
+    }
+
+    // Fallback to .py file for dev or if .pyc not found
+    let py_file = resource_dir.join("wrapper.py");
+    if py_file.exists() {
+        return Ok(py_file);
     }
 
     // Dev fallback.

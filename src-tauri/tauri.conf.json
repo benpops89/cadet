@@ -39,7 +39,7 @@
       "icons/icon.ico"
     ],
     "resources": [
-      "python",
+      "python/__pycache__",
       "bin/ty"
     ],
     "linux": {
