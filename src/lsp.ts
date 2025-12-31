@@ -131,6 +131,15 @@ export async function initializeLSPClient(): Promise<MonacoLanguageClient> {
       servicesInitialized = true;
     }
 
+    // Ensure we don't have a stale server from a previous failed init.
+    // If the client fails mid-handshake, the Rust child can keep running, and the next
+    // attempt will send a second `initialize` to an already-initialized `ty` instance.
+    try {
+      await invoke("lsp_stop");
+    } catch {
+      // ignore
+    }
+
     // Start the LSP server via Tauri
     await invoke("lsp_start");
 
@@ -170,7 +179,16 @@ export async function initializeLSPClient(): Promise<MonacoLanguageClient> {
     });
 
     // Start the client
-    await languageClient.start();
+    try {
+      await languageClient.start();
+    } catch (error) {
+      try {
+        await invoke("lsp_stop");
+      } catch {
+        // ignore
+      }
+      throw error;
+    }
 
     return languageClient;
   })();
@@ -182,6 +200,14 @@ export async function initializeLSPClient(): Promise<MonacoLanguageClient> {
   } catch (error) {
     console.error("Failed to initialize LSP client:", error);
     languageClient = null;
+
+    // Best-effort cleanup so retries start from a clean slate.
+    try {
+      await invoke("lsp_stop");
+    } catch {
+      // ignore
+    }
+
     throw error;
   } finally {
     initializingClient = null;
