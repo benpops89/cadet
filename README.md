@@ -14,6 +14,17 @@ Models are authored in **Python using the CadQuery library**, and the app provid
 - Monaco-based editor experience with a bundled language server integration
 - 3D STL preview viewport (Three.js)
 
+## Writing Models
+
+Cadet expects your Python scripts to define a `result` variable containing the final CadQuery object. This is what the app exports to the 3D viewport.
+
+```python
+import cadquery as cq
+
+# The app looks for the 'result' variable
+result = cq.Workplane("XY").box(10, 10, 10)
+```
+
 ## Development
 
 This repo uses **Bun** and **mise**.
@@ -39,6 +50,7 @@ This repo uses **Bun** and **mise**.
 ## `ty` binary
 
 `ty` is **packaged with the app** (end users shouldn’t need to install it).
+It serves as the Language Server Protocol (LSP) backend, providing autocompletion and error checking in the editor.
 
 For local development, you need the correct `ty` binary for your platform:
 
@@ -53,9 +65,8 @@ set `CADET_PYTHON` to the full path of the Python interpreter.
 
 ## Linux packaging notes
 
-The Debian package intentionally stays small and does not bundle Python/CadQuery.
-To generate models and use the bundled language server, you must have a usable Python environment
-available on the system with CadQuery installed.
+The Debian package stays small by not bundling Python/CadQuery directly. Instead, it installs a dedicated virtual environment at `/var/lib/cadet/.venv` and attempts to install CadQuery automatically via a post-install script.
+It requires `python3`, `python3-venv`, and `python3-pip` to be available on your system.
 
 ## Recommended IDE Setup
 
