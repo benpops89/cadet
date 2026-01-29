@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="app-icon.png" alt="Cadet Logo" width="120">
+  <br>
+  <b>Design, iterate, and preview CadQuery models with ease.</b>
+</p>
+
+---
+
 # Cadet
 
 Cadet is an **experimental** Tauri + React desktop app for exploring script-driven CAD workflows.
