@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app-icon.png" alt="Cadet Logo" width="120">
+  <img src="app-icon.png" alt="Cadet Logo" width="300">
   <br>
   <b>Design, iterate, and preview CadQuery models with ease.</b>
 </p>
